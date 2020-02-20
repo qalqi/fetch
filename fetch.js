@@ -226,6 +226,8 @@ function Body() {
       this._bodyInit = new Blob([this._bodyArrayBuffer])
     } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
       this._bodyArrayBuffer = bufferClone(body)
+    } else if (body && body.constructor && body.constructor.name == 'Blob') {
+        this._bodyText = body = body.text()
     } else {
       this._bodyText = body = Object.prototype.toString.call(body)
     }
